@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema({
-  title: String,
-  user_creator: mongoose.Types.ObjectIdv,
-  users_participants: [mongoose.Types.ObjectId],
-  tasks: [mongoose.Types.ObjectId],
-  status_available: [mongoose.Types.ObjectId],
+  title: { type: String, required: true },
+  status: { type: Number, default: 0, enum: [0, 1, 2] },
+  board_id: { type: mongoose.Schema.Types.ObjectId, ref: "Board" },
+  user_responsible: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  description: String,
 });
 
 const TaskModel = mongoose.model("Task", TaskSchema);
