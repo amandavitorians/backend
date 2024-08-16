@@ -119,6 +119,10 @@ const UserService = {
 
     return userUpdated;
   },
+
+  async deleteUser(id) {
+    return await UserModel.findOneAndDelete({ _id: id });
+  },
 };
 
 export { UserService };

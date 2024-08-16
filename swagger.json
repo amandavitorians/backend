@@ -1,0 +1,394 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API Documentation for the Project",
+    "version": "1.0.0",
+    "title": "Project API"
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication related endpoints"
+    },
+    {
+      "name": "User",
+      "description": "User related endpoints"
+    },
+    {
+      "name": "Board",
+      "description": "Board related endpoints"
+    },
+    {
+      "name": "Task",
+      "description": "Task related endpoints"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Authentication route",
+        "description": "Authenticates the user",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User information and jwt"
+          },
+          "500": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Registration route",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User information and jwt"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    },
+    "/user/:board_id": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all users by board ID",
+        "description": "Fetches all users participating in a specific board",
+        "parameters": [
+          {
+            "name": "board_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          },
+          "500": {
+            "description": "Users in board search failed"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all users",
+        "description": "Fetches all users in the system",
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          },
+          "500": {
+            "description": "Users search failed"
+          }
+        }
+      }
+    },
+    "/user/:id": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Update a user",
+        "description": "Updates the information of a specific user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User updated successfully"
+          },
+          "500": {
+            "description": "User update failed"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete a user",
+        "description": "Deletes the information of a specific user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User deleted successfully"
+          },
+          "500": {
+            "description": "User update failed"
+          }
+        }
+      }
+    },
+    "/board": {
+      "get": {
+        "tags": ["Board"],
+        "summary": "Get all boards",
+        "description": "Fetches all Boards in the system",
+        "responses": {
+          "200": {
+            "description": "A list of Boards"
+          },
+          "500": {
+            "description": "Boards search failed"
+          }
+        }
+      }
+    },
+    "/board/:id": {
+      "get": {
+        "tags": ["Board"],
+        "summary": "Get board details",
+        "description": "Fetches board by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Board information"
+          },
+          "500": {
+            "description": "Boards search failed"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Board"],
+        "summary": "Update board details",
+        "description": "Update board by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "users_participants",
+            "in": "body",
+            "required": true,
+            "type": "array"
+          },
+          {
+            "name": "user_creator",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Board information updated"
+          },
+          "500": {
+            "description": "Boards update failed"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Board"],
+        "summary": "Delete board informations",
+        "description": "delete board by id",
+        "responses": {
+          "200": {
+            "description": "Board deleted"
+          },
+          "500": {
+            "description": "Board deletion failed"
+          }
+        }
+      }
+    },
+    "/task": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "board_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Task"],
+        "summary": "Get all tasks by board id",
+        "description": "Fetches all tasks in the board",
+        "responses": {
+          "200": {
+            "description": "A list of tasks in the board"
+          },
+          "500": {
+            "description": "Task search failed"
+          }
+        }
+      }
+    },
+    "/task/:id": {
+      "get": {
+        "tags": ["Task"],
+        "summary": "Get task details",
+        "description": "Fetches task by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task information"
+          },
+          "500": {
+            "description": "Task search failed"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Task"],
+        "summary": "Update task details",
+        "description": "Update task by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "board_id",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_responsible",
+            "in": "body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task information updated"
+          },
+          "500": {
+            "description": "Tasks update failed"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Task"],
+        "summary": "Delete task informations",
+        "description": "delete task by id",
+        "responses": {
+          "200": {
+            "description": "Task deleted"
+          },
+          "500": {
+            "description": "Task deletion failed"
+          }
+        }
+      }
+    }
+  },
+
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format **Bearer &lt;token&gt;**"
+    }
+  }
+}

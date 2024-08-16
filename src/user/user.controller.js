@@ -51,4 +51,14 @@ UserRouter.post(`${routePrefix}/:id`, async (req, res) => {
   }
 });
 
+UserRouter.delete(`${routePrefix}/:id`, async (req, res) => {
+  const { id } = req.params;
+  try {
+    await UserService.deleteUser(id);
+    res.status(200).json({ message: "User deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "User deletion failed" });
+  }
+});
+
 export { UserRouter };
