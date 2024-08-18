@@ -4,7 +4,7 @@ const connectToDatabase = async () => {
   let connectionSuccess = false;
   const client = await mongoose
     .connect(
-      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.bb6ie.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+      `mongodb+srv://amandavns:<password>@cluster0.xdjwv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
     )
     .then((result) => {
       console.log("MongoDB connection success");
