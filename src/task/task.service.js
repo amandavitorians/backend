@@ -1,3 +1,5 @@
+import { TaskModel } from "./task.entity.js";
+
 const TaskService = {
   async createTask(title, description, board_id, user_responsible) {
     if (!title) {
@@ -49,6 +51,19 @@ const TaskService = {
     }
 
     return taskDetails;
+  },
+
+  async getStatus(status) {
+    const taskStatus = await TaskModel.find({status}).populate({
+      path: "user_responsible",
+      select: "title",
+    });
+
+    if (!taskStatus) {
+      throw new Error("Task not found");
+    }
+
+    return taskStatus;
   },
 
   async updateTask(id, title, description, board_id, user_responsible) {
