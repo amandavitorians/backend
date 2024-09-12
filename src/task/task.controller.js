@@ -26,6 +26,18 @@ TaskRouter.get(`${routePrefix}/:id`, async (req, res) => {
   }
 });
 
+TaskRouter.get(`${routePrefix}/status/:status`, async (req, res) => {
+  const { status } = req.params;
+
+  try {
+    const taskStatus = await TaskService.getStatus(status);
+    res.status(200).json(taskStatus);
+  } catch (error) {
+    console.log (error);
+    res.status(500).json({ message: "Status not found" });
+  }
+});
+
 TaskRouter.post(`${routePrefix}`, async (req, res) => {
   const { title, description, board_id, user_responsible } = req.body;
   try {
